@@ -20,7 +20,6 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     env:
-      CLOUDFRONT_DIST_ID: E1BVEKRQF20RNI
       PATHPATTERN: "*"
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -49,7 +48,7 @@ jobs:
           
       - name: Output jq help message 
         run: |
-          echo env.CLOUDFRONT_DIST_ID
+          echo $CLOUDFRONT_DIST_ID
           PAYLOAD=`aws cloudfront get-distribution-config --id env.CLOUDFRONT_DIST_ID`
           echo $PAYLOAD
         env:

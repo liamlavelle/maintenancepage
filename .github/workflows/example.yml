@@ -1,18 +1,25 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Self-service Maintenance Page
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  #push:
+  #  branches: [ main ]
+  #pull_request:
+  #  branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
+    inputs:
+      environment:
+        description: 'Environment (DEV, TEST, QA or PROD)'
+        required: true
+        default: 'DEV'
+      application:
+        description: 'Application (CRM or CUST360)'
+        required: true
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -30,8 +37,8 @@ jobs:
       - name: Configure AWS credentials from Test account
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.${{ github.event.inputs.environment }}_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.${{ github.event.inputs.environment }}_AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
       
 

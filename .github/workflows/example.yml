@@ -49,7 +49,7 @@ jobs:
       - name: Output jq help message 
         run: |
           echo $CLOUDFRONT_DIST_ID
-          PAYLOAD=`aws cloudfront get-distribution-config --id env.CLOUDFRONT_DIST_ID`
+          PAYLOAD=`aws cloudfront get-distribution-config --id $CLOUDFRONT_DIST_ID`
           echo $PAYLOAD
         env:
           CLOUDFRONT_DIST_ID: E1BVEKRQF20RNI

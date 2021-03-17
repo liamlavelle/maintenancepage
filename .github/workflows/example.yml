@@ -32,15 +32,12 @@ jobs:
       
       # TODO: Use regex here for one liner?
       - name: Check the Environment variable is valid
-        if: | 
-          ${{ github.event.inputs.environment }} != "prod" || 
-          ${{ github.event.inputs.environment }} != "qa" ||
-          ${{ github.event.inputs.environment }} != "test" ||
-          ${{ github.event.inputs.environment }} != "dev"
         run: |
-          echo "Please enter a valid Environment (DEV, TEST, QA or PROD) name. The value you entered, ${{ github.event.inputs.environment }} is not valid."
-          exit 1
-      
+          if ! [[ ${{ github.event.inputs.environment }} =~ ^(prod|qa|test|dev)$ ]]; then
+            echo "Please enter a valid Environment (dev, test, qa or prod) name. The value you entered, ${{ github.event.inputs.environment }} is not valid."
+            exit 1
+          fi
+          
       # TODO: Use regex here for one liner?
       - if: | 
           ${{ github.event.inputs.application }} != "CRM" && 

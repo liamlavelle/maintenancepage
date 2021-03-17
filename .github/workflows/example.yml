@@ -32,9 +32,9 @@ jobs:
       
       # TODO: Use regex here for one liner?
       - if: | 
-          ${{ github.event.inputs.environment }} != "prod" || 
-          ${{ github.event.inputs.environment }} != "qa" ||
-          ${{ github.event.inputs.environment }} != "test" ||
+          ${{ github.event.inputs.environment }} != "prod" && 
+          ${{ github.event.inputs.environment }} != "qa" &&
+          ${{ github.event.inputs.environment }} != "test" &&
           ${{ github.event.inputs.environment }} != "dev"
         name: Check the Environment variable is valid
         run: |

@@ -35,6 +35,12 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
+      - name: Set env
+        run: echo ::set-env name=ACCESSKEY::${{ secrets.PROD_AWS_ACCESS_KEY_ID }}_${{ github.event.inputs.environment }}
+    
+      - name: Test
+        run: echo $ACCESSKEY
+      
       # This is ugly, variable interpolation not possible...
       - if: ${{ github.event.inputs.environment }} == "PROD"
         name:  from Test account

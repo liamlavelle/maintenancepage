@@ -32,8 +32,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      ACTIONS_STEP_DEBUG: true
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
       # This is ugly, variable interpolation not possible...

@@ -68,7 +68,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.QA_AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
           
-      - if: ${{ github.event.inputs.environment }} == "TEST"
+      - if: ${{ github.event.inputs.environment }} == "test"
         name: Configure AWS ${{ github.event.inputs.environment }} creds
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -76,7 +76,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
       
-      - if: ${{ github.event.inputs.environment }} == "DEV" 
+      - if: ${{ github.event.inputs.environment }} == "dev" 
         name: Configure AWS ${{ github.event.inputs.environment }} creds
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -86,7 +86,7 @@ jobs:
           
       - name: Test arrays
         run: |
-          declare -A DEV_CLOUDFRONT_DIST_ID=( ["CRM"]="E3X8VEW3S9TQQ" ["CUST360"]="E696HHVMKMNGJ")
+          declare -A DEV_CLOUDFRONT_DIST_ID=( ["crm"]="E3X8VEW3S9TQQ" ["cust360"]="E696HHVMKMNGJ")
           echo ${DEV_CLOUDFRONT_DIST_ID[${{ github.event.inputs.application }}]}
           #echo ${{ github.event.inputs.environment }}_CLOUDFRONT_DIST_ID
         

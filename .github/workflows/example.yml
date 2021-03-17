@@ -88,8 +88,10 @@ jobs:
         run: |
           declare -A DEV_CLOUDFRONT_DIST_ID=( ["crm"]="E3X8VEW3S9TQQ" ["cust360"]="E696HHVMKMNGJ")
           echo ${DEV_CLOUDFRONT_DIST_ID[${{ github.event.inputs.application }}]}
-          echo ::set-env name=STEPVAR::${{ github.event.inputs.environment }}_${CLOUDFRONT_DIST_ID}
+          echo ::set-env name=STEPVAR::${{ github.event.inputs.environment }}
           echo $STEPVAR
+          echo ::set-env name=STEPVAR2::${{ env.STEPVAR }}_CLOUDFRONT_DIST_ID
+          echo $STEPVAR2
           #echo ${{ github.event.inputs.environment }}_${CLOUDFRONT_DIST_ID[${{ github.event.inputs.application }}]}
           #echo ${{ github.event.inputs.environment }}_CLOUDFRONT_DIST_ID
         

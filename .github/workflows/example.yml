@@ -39,10 +39,10 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - if: ${{ github.event.inputs.environment }} != "PROD" || ${{ github.event.inputs.environment }} != "QA"
+      - if: ${{ github.event.inputs.environment }} != "PROD"
         name: Check input
         run: |
-          echo "Environment name not valid"
+          echo "Please enter a valid Environment (DEV, TEST, QA or PROD). The value you entered, ${{ github.event.inputs.environment }} is not valid."
           exit 1
         
       - name: Temp exit

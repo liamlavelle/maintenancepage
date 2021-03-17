@@ -31,12 +31,12 @@ jobs:
       - uses: actions/checkout@v2
       
       # TODO: Use regex here for one liner?
-      - if: | 
-          ${{ github.event.inputs.environment }} != "prod" && 
-          ${{ github.event.inputs.environment }} != "qa" &&
-          ${{ github.event.inputs.environment }} != "test" &&
+      - name: Check the Environment variable is valid
+        if: | 
+          ${{ github.event.inputs.environment }} != "prod" || 
+          ${{ github.event.inputs.environment }} != "qa" ||
+          ${{ github.event.inputs.environment }} != "test" ||
           ${{ github.event.inputs.environment }} != "dev"
-        name: Check the Environment variable is valid
         run: |
           echo "Please enter a valid Environment (DEV, TEST, QA or PROD) name. The value you entered, ${{ github.event.inputs.environment }} is not valid."
           exit 1

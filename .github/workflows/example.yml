@@ -20,6 +20,10 @@ on:
       application:
         description: 'Application (CRM or CUST360)'
         required: true
+      on_off_maintenance_page:
+        description: 'Turn maintenance page on/off (ON or OFF)'
+        required: true
+        
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -35,19 +39,17 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - name: Set env
-        run: echo ::set-env name=ACCESSKEY::${{ secrets.PROD_AWS_ACCESS_KEY_ID }}_${{ github.event.inputs.environment }}
-    
-      - name: Test
-        run: echo $ACCESSKEY
-      
-      # This is ugly, variable interpolation not possible...
+      - if: ${{ github.event.inputs.environment }} != "PROD"
+        name: Check input
+        run: echo "Environment name not valid && exit 1
+        
+      # TODO: These blocks are ugly, but variable interpolation isn't working as expected.
       - if: ${{ github.event.inputs.environment }} == "PROD"
         name:  from Test account
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: "${{ secrets.PROD_AWS_ACCESS_KEY_ID }}_${{ github.event.inputs.environment }}"
-          aws-secret-access-key: "${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}_${{ github.event.inputs.environment }}"
+          aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
           
       - if: ${{ github.event.inputs.environment }} == "QA"

@@ -8,14 +8,14 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment (DEV, TEST, QA or PROD)'
+        description: 'Environment (dev, test, qa or prod)'
         required: true
         default: 'DEV'
       application:
-        description: 'Application (CRM or CUST360)'
+        description: 'Application (crm or cust360)'
         required: true
       on_off_maintenance_page:
-        description: 'Turn maintenance page on/off (ON or OFF)'
+        description: 'Turn maintenance page on/off (on or off)'
         required: true
         
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -30,7 +30,6 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      # TODO: Use regex here for one liner?
       - name: Check the Environment variable is valid
         run: |
           if ! [[ ${{ github.event.inputs.environment }} =~ ^(prod|qa|test|dev)$ ]]; then
@@ -38,24 +37,20 @@ jobs:
             exit 1
           fi
           
-      # TODO: Use regex here for one liner?
-      - if: | 
-          ${{ github.event.inputs.application }} != "CRM" && 
-          ${{ github.event.inputs.application }} != "CUST360" 
-        name: Check the Application variable is valid
+      - name: Check the Application variable is valid
         run: |
-          echo "Please enter a valid Application (CRM or CUST360) name. The value you entered, ${{ github.event.inputs.application }} is not valid."
-          exit 1
+          if ! [[ ${{ github.event.inputs.application }} =~ ^(crm|cust360)$ ]]; then
+            echo "Please enter a valid Application (crm OR cust360) name. The value you entered, ${{ github.event.inputs.application }} is not valid."
+            exit 1
+          fi
+       
+      - name: Check the Maintenance page variable is valid
+        run: |
+          if ! [[ ${{ github.event.inputs.on_off_maintenance_page }} =~ ^(on|off)$ ]]; then
+            echo "Please enter a valid Application (on OR off) name. The value you entered, ${{ github.event.inputs.on_off_maintenance_page }} is not valid."
+            exit 1
+          fi
       
-      # TODO: Use regex here for one liner?
-      - if: | 
-          ${{ github.event.inputs.on_off_maintenance_page }} != "ON" && 
-          ${{ github.event.inputs.on_off_maintenance_page }} != "OFF" 
-        name: Check the Application variable is valid
-        run: |
-          echo "Please enter a valid Maintenance Page (ON or OFF) option . The value you entered, ${{ github.event.inputs.on_off_maintenance_page }} is not valid."
-          exit 1
-  
       # TODO: These blocks are ugly, but variable interpolation isn't working as expected.
       - if: ${{ github.event.inputs.environment }} == "PROD"
         name:  from Test account

@@ -91,7 +91,9 @@ jobs:
           #echo ${{ github.event.inputs.environment }}_CLOUDFRONT_DIST_ID
         
       - name: Temp exit
-        run: echo "Lets exit here as no need to run the rest" && exit 0
+        run: | 
+          echo "Lets exit here as no need to run the rest"
+          exit 0
           
       - name: Toggle maintenance page
         run: |

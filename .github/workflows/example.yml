@@ -58,7 +58,7 @@ jobs:
           cat  /tmp/${ID}.json
         env:
           CLOUDFRONT_DIST_ID: E1BVEKRQF20RNI
-          PATHPATTERN: "/disabled/*"
+          PATHPATTERN: "*"
 
       # Runs a single command using the runners shell
       - name: Run a one-line script

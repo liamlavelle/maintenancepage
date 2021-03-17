@@ -44,6 +44,8 @@ jobs:
           echo env.CLOUDFRONT_DIST_ID
           PAYLOAD=`aws cloudfront get-distribution-config --id env.CLOUDFRONT_DIST_ID`
           echo $PAYLOAD
+          env:
+            CLOUDFRONT_DIST_ID: E1BVEKRQF20RNI
 
       # Runs a single command using the runners shell
       - name: Run a one-line script

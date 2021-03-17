@@ -35,7 +35,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - if: ${{ github.event.inputs.environment == "PROD" }}
+      - if: ${{ github.event.inputs.environment }} == "PROD"
         name:  from Test account
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -43,7 +43,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.$PROD_AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
       
-      - if: ${{ github.event.inputs.environment == "DEV" }}
+      - if: ${{ github.event.inputs.environment }} == "DEV" 
         name:  from Test account
         uses: aws-actions/configure-aws-credentials@v1
         with:

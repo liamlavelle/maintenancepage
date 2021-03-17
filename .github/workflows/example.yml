@@ -94,7 +94,7 @@ jobs:
       - name: Temp exit
         run: | 
           echo "Lets exit here as no need to run the rest"
-          exit 0
+          exit 1
           
       - name: Toggle maintenance page
         run: |

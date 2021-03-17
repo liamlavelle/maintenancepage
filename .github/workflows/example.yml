@@ -41,7 +41,7 @@ jobs:
       
       - if: ${{ github.event.inputs.environment }} != "PROD"
         name: Check input
-        run: echo "Environment name not valid && exit 1
+        run: echo "Environment name not valid" && exit 1
         
       # TODO: These blocks are ugly, but variable interpolation isn't working as expected.
       - if: ${{ github.event.inputs.environment }} == "PROD"

@@ -47,7 +47,7 @@ jobs:
       - name: Check the Maintenance page variable is valid
         run: |
           if ! [[ ${{ github.event.inputs.on_off_maintenance_page }} =~ ^(on|off)$ ]]; then
-            echo "Please enter a valid Application (on OR off) name. The value you entered, ${{ github.event.inputs.on_off_maintenance_page }} is not valid."
+            echo "Please enter a valid Maintenance page (on OR off) option. The value you entered, ${{ github.event.inputs.on_off_maintenance_page }} is not valid."
             exit 1
           fi
       

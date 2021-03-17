@@ -35,6 +35,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
       
+
+      - name: Hello world
+        run: echo Hello world $FIRST_NAME $middle_name $Last_Name!
+        env:
+          FIRST_NAME: Mona
+          middle_name: The
+          Last_Name: Octocat
+      
       - name: List buckets with the AWS CLI
         run: |
           aws s3 ls
@@ -44,8 +52,8 @@ jobs:
           echo env.CLOUDFRONT_DIST_ID
           PAYLOAD=`aws cloudfront get-distribution-config --id env.CLOUDFRONT_DIST_ID`
           echo $PAYLOAD
-          env:
-            CLOUDFRONT_DIST_ID: E1BVEKRQF20RNI
+        env:
+          CLOUDFRONT_DIST_ID: E1BVEKRQF20RNI
 
       # Runs a single command using the runners shell
       - name: Run a one-line script

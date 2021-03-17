@@ -88,7 +88,9 @@ jobs:
         run: |
           declare -A DEV_CLOUDFRONT_DIST_ID=( ["crm"]="E3X8VEW3S9TQQ" ["cust360"]="E696HHVMKMNGJ")
           echo ${DEV_CLOUDFRONT_DIST_ID[${{ github.event.inputs.application }}]}
-          echo ${{ github.event.inputs.environment }}_${CLOUDFRONT_DIST_ID[${{ github.event.inputs.application }}]}
+          echo ::set-env name=STEPVAR::${{ github.event.inputs.environment }}_${CLOUDFRONT_DIST_ID}
+          echo $STEPVAR
+          #echo ${{ github.event.inputs.environment }}_${CLOUDFRONT_DIST_ID[${{ github.event.inputs.application }}]}
           #echo ${{ github.event.inputs.environment }}_CLOUDFRONT_DIST_ID
         
       - name: Temp exit

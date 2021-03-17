@@ -50,9 +50,14 @@ jobs:
         run: |
           echo $CLOUDFRONT_DIST_ID
           PAYLOAD=`aws cloudfront get-distribution-config --id $CLOUDFRONT_DIST_ID`
-          echo $PAYLOAD
+          ETAG=`echo ${PAYLOAD} | jq -r '.ETag'`
+          echo $ETAG
+          PAYLOAD=`echo ${PAYLOAD} | jq 'del(.ETag)' | jq '.DistributionConfig' | jq --arg PATHPATTERN "$PATHPATTERN" '.CacheBehaviors.Items[0].PathPattern = $PATHPATTERN'`
+          echo $PAYLOAD > /tmp/${ID}.json
+          cat  /tmp/${ID}.json
         env:
           CLOUDFRONT_DIST_ID: E1BVEKRQF20RNI
+          PATHPATTERN: "*"
 
       # Runs a single command using the runners shell
       - name: Run a one-line script

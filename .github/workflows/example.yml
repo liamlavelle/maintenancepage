@@ -54,6 +54,7 @@ jobs:
           echo $ETAG
           PAYLOAD=`echo ${PAYLOAD} | jq 'del(.ETag)' | jq '.DistributionConfig' | jq --arg PATHPATTERN "$PATHPATTERN" '.CacheBehaviors.Items[0].PathPattern = $PATHPATTERN'`
           echo $PAYLOAD > /tmp/${ID}.json
+          aws cloudfront update-distribution --distribution-config file:///tmp/${ID}.json --id ${ID} --if-match ${ETAG}
           cat  /tmp/${ID}.json
         env:
           CLOUDFRONT_DIST_ID: E1BVEKRQF20RNI

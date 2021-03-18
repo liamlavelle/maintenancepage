@@ -98,34 +98,13 @@ jobs:
           echo "ENVIRONMENT: ${ENV_NAME}"
           echo "APPLICATION: ${APP_NAME}"
           echo "Cloudfront Distribution ID: ${DEV_CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}
-          
-          echo "Get Cloudfront distrubution config..."
-          PAYLOAD=`aws cloudfront get-distribution-config --id ${CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}`
-          
-          echo "Set the ETag variable..."
-          ETAG=`echo ${PAYLOAD} | jq -r '.ETag'`
-          echo "ETag set as ${ETAG}..."
-                  
+                            
       - name: Temp exit
         run: | 
           echo "Lets exit here as no need to run the rest"
           exit 1
           
-      - name: Toggle maintenance page
-        run: |
-          declare -A CLOUDFRONT_DIST_ID=( ["CRM"]="E3X8VEW3S9TQQ" ["CUST360"]="E696HHVMKMNGJ")
-          
-          echo $CLOUDFRONT_DIST_ID
-          PAYLOAD=`aws cloudfront get-distribution-config --id $CLOUDFRONT_DIST_ID`
-          ETAG=`echo ${PAYLOAD} | jq -r '.ETag'`
-          echo $ETAG
-          PAYLOAD=`echo ${PAYLOAD} | jq 'del(.ETag)' | jq '.DistributionConfig' | jq --arg PATHPATTERN "$PATHPATTERN" '.CacheBehaviors.Items[0].PathPattern = $PATHPATTERN'`
-          echo $PAYLOAD > /tmp/${ID}.json
-          aws cloudfront update-distribution --distribution-config file:///tmp/${ID}.json --id ${CLOUDFRONT_DIST_ID} --if-match $ETAG
-          cat  /tmp/${ID}.json
-        env:
-          CLOUDFRONT_DIST_ID: E1BVEKRQF20RNI
-          PATHPATTERN: "*"
+
 
 
 

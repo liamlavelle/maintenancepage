@@ -101,7 +101,7 @@ jobs:
                                           ["dev_cust360"]="TBC" \
                                         )
                                           
-          declare -A PATH_PATTERN_OPT=( ["on"]='"*.*"' \
+          declare -A PATH_PATTERN_OPT=( ["on"]="*" \
                                         ["off"]="/disabled/*" \
                                       )
                                            

@@ -97,7 +97,7 @@ jobs:
                                            
           echo "ENVIRONMENT: ${ENV_NAME}"
           echo "APPLICATION: ${APP_NAME}"
-          echo "Cloudfront Distribution ID: ${DEV_CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}
+          echo "Cloudfront Distribution ID: ${DEV_CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}"
                             
       - name: Temp exit
         run: | 

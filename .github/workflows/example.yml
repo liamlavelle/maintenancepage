@@ -101,8 +101,8 @@ jobs:
                                           ["dev_crm"]="TBC" \
                                           ["dev_cust360"]="TBC")
                                           
-          declare - A PATH_PATTERN_OPT=( ["on"]="/*.*/" \
-                                         ["off"]="/disabled/")
+          declare -A PATH_PATTERN_OPT=( ["on"]="/*.*/" \
+                                        ["off"]="/disabled/")
                                            
           echo "ENVIRONMENT: ${ENV_NAME}"
           echo "APPLICATION: ${APP_NAME}"

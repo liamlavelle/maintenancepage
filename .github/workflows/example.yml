@@ -52,7 +52,7 @@ jobs:
           fi
       
       # TODO: These blocks are ugly, but variable interpolation isn't working as expected.
-      - if: startsWith(${{ github.event.inputs.environment }} == "prod")
+      - if: startsWith(${{ github.event.inputs.environment }}, "prod")
         name: Configure AWS ${{ github.event.inputs.environment }} creds
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -60,7 +60,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
           
-      - if: startsWith(${{ github.event.inputs.environment }} == "qa")
+      - if: startsWith(${{ github.event.inputs.environment }}, "qa")
         name: Configure AWS ${{ github.event.inputs.environment }} creds
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -68,7 +68,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.QA_AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
           
-      - if: startsWith(${{ github.event.inputs.environment }} == "test")
+      - if: startsWith(${{ github.event.inputs.environment }}, "test")
         name: Configure AWS ${{ github.event.inputs.environment }} creds
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -76,7 +76,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
       
-      - if: (${{ github.event.inputs.environment }} == "dev") 
+      - if: (${{ github.event.inputs.environment }}, "dev") 
         name: Configure AWS ${{ github.event.inputs.environment }} creds
         uses: aws-actions/configure-aws-credentials@v1
         with:

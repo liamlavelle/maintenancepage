@@ -92,17 +92,8 @@ jobs:
       
       - name: Toggle maintenance page
         run: |
-          declare -A CLOUDFRONT_DIST_ID=( ["prod_crm"]="E1BVEKRQF20RNI" \
-                                          ["prod_cust360"]="E1BVEKRQF20RNI" \
-                                          ["qa_crm"]="TBC" \
-                                          ["qa_cust360"]="TBC" \
-                                          ["test_crm"]="TBC" \
-                                          ["test_cust360"]="TBC" \
-                                          ["dev_crm"]="TBC" \
-                                          ["dev_cust360"]="TBC")
-                                          
-          declare -A PATH_PATTERN_OPT=( ["on"]="/*.*/" \
-                                        ["off"]="/disabled/")
+          declare -A CLOUDFRONT_DIST_ID=( ["prod_crm"]="E1BVEKRQF20RNI" ["prod_cust360"]="E1BVEKRQF20RNI" ["qa_crm"]="TBC" ["qa_cust360"]="TBC" ["test_crm"]="TBC" ["test_cust360"]="TBC" ["dev_crm"]="TBC" ["dev_cust360"]="TBC")                                     
+          declare -A PATH_PATTERN_OPT=( ["on"]="/*.*/" ["off"]="/disabled/")
                                            
           echo "ENVIRONMENT: ${ENV_NAME}"
           echo "APPLICATION: ${APP_NAME}"

@@ -94,6 +94,7 @@ jobs:
       - name: Test arrays
         run: |
           echo $REPOSITORY_NAME
+          echo DEV_CLOUDFRONT_DIST_ID_$REPOSITORY_NAME
           
           
           

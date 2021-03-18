@@ -108,6 +108,13 @@ jobs:
           echo "ENVIRONMENT: ${ENV_NAME}"
           echo "APPLICATION: ${APP_NAME}"
           echo "Cloudfront Distribution ID: ${CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}"
+          
+          echo "Get Cloudfront distrubution config..."
+          PAYLOAD=`aws cloudfront get-distribution-config --id ${CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}`
+
+          echo "Set the ETag variable..."
+          ETAG=`echo ${PAYLOAD} | jq -r '.ETag'`
+          echo "ETag set as ${ETAG}..."
       
                             
       - name: Temp exit

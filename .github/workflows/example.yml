@@ -125,7 +125,7 @@ jobs:
           echo "Update the configuration payload..."
           PAYLOAD=`echo ${PAYLOAD} | jq 'del(.ETag)' | \
                                      jq '.DistributionConfig' | \
-                                     jq -r --arg PATHPATTERN $PATHPATTERN '.CacheBehaviors.Items[0].PathPattern = $PATHPATTERN'`
+                                     jq -r --arg PATHPATTERN "$PATHPATTERN" '.CacheBehaviors.Items[0].PathPattern = $PATHPATTERN'`
           
           echo "Write the updated payload to file..."
           echo $PAYLOAD > /tmp/${CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}.json

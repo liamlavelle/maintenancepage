@@ -121,7 +121,7 @@ jobs:
           PAYLOAD=`echo ${PAYLOAD} | jq 'del(.ETag)' | \
                                      jq '.DistributionConfig' | \
                                      jq --arg PATHPATTERN $PATHPATTERN '.CacheBehaviors.Items[0].PathPattern = $PATHPATTERN'`
-          cat $PAYLOAD
+
       
                             
       - name: Temp exit

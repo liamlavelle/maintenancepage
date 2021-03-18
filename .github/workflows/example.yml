@@ -115,6 +115,12 @@ jobs:
           echo "Set the ETag variable..."
           ETAG=`echo ${PAYLOAD} | jq -r '.ETag'`
           echo "ETag set as ${ETAG}..."
+          
+          echo "Update the configuration payload..."
+          PAYLOAD=`echo ${PAYLOAD} | jq 'del(.ETag)' | \
+                                     jq '.DistributionConfig' | \
+                                     jq --arg PATHPATTERN "$PATHPATTERN" '.CacheBehaviors.Items[0].PathPattern = ${PATH_PATTERN_OPT[$MAINT_ONOFF]}'`
+          cat $PAYLOAD
       
                             
       - name: Temp exit

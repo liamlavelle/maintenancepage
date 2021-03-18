@@ -121,7 +121,7 @@ jobs:
           
           PATHPATTERN=${PATH_PATTERN_OPT[$MAINT_ONOFF]}
           echo ${PATHPATTERN}
-          PATHPATTERN=`echo "$PATH_PATTERN" | sed -e 's/^"//' -e 's/"$//'`
+          #PATHPATTERN=`echo "$PATH_PATTERN" | sed -e 's/^"//' -e 's/"$//'`
           echo "Update the configuration payload..."
           PAYLOAD=`echo ${PAYLOAD} | jq 'del(.ETag)' | \
                                      jq '.DistributionConfig' | \

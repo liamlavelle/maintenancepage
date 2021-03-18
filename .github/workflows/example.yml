@@ -116,10 +116,11 @@ jobs:
           ETAG=`echo ${PAYLOAD} | jq -r '.ETag'`
           echo "ETag set as ${ETAG}..."
           
+          PATHPATTERN=${PATH_PATTERN_OPT[$MAINT_ONOFF]}
           echo "Update the configuration payload..."
           PAYLOAD=`echo ${PAYLOAD} | jq 'del(.ETag)' | \
                                      jq '.DistributionConfig' | \
-                                     jq --arg PATHPATTERN ${PATH_PATTERN_OPT[$MAINT_ONOFF]} '.CacheBehaviors.Items[0].PathPattern = ${PATH_PATTERN_OPT[$MAINT_ONOFF]}'`
+                                     jq --arg PATHPATTERN $PATHPATTERN '.CacheBehaviors.Items[0].PathPattern = $PATHPATTERN'`
           cat $PAYLOAD
       
                             

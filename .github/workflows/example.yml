@@ -52,7 +52,7 @@ jobs:
           fi
       
       # TODO: These blocks are ugly, but variable interpolation isn't working as expected.
-      - if: startsWith("${{ github.event.inputs.environment }}", "prod")
+      - if: startsWith('${{ github.event.inputs.environment }}', 'prod')
         name: Configure AWS ${{ github.event.inputs.environment }} creds
         uses: aws-actions/configure-aws-credentials@v1
         with:

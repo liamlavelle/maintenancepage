@@ -101,7 +101,7 @@ jobs:
                                           ["dev_cust360"]="TBC" \
                                         )
                                           
-          declare -A PATH_PATTERN_OPT=( ["on"]="*.*" \
+          declare -A PATH_PATTERN_OPT=( ["on"]='"*.*"' \
                                         ["off"]="/disabled/*" \
                                       )
                                            
@@ -121,6 +121,7 @@ jobs:
           
           PATHPATTERN=${PATH_PATTERN_OPT[$MAINT_ONOFF]}
           echo ${PATHPATTERN}
+          PATHPATTERN=`echo "$PATH_PATTERN" | sed -e 's/^"//' -e 's/"$//'`
           echo "Update the configuration payload..."
           PAYLOAD=`echo ${PAYLOAD} | jq 'del(.ETag)' | \
                                      jq '.DistributionConfig' | \

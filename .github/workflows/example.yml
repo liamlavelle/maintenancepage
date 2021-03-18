@@ -88,12 +88,18 @@ jobs:
         run: |
           declare -A DEV_CLOUDFRONT_DIST_ID=( ["crm"]="E3X8VEW3S9TQQ" ["cust360"]="E696HHVMKMNGJ")
           echo ${DEV_CLOUDFRONT_DIST_ID[${{ github.event.inputs.application }}]}
-          echo "action_state=${{ github.event.inputs.environment }}" >> $GITHUB_ENV
-          echo "${{ env.action_state }}
-          echo "dist_id = ${{ env.action_state }}_CLOUDFRONT_DIST_ID" >> $GITHUB_ENV
-          echo "${{ env.dist_id }}
-          #echo ${{ github.event.inputs.environment }}_${CLOUDFRONT_DIST_ID[${{ github.event.inputs.application }}]}
-          #echo ${{ github.event.inputs.environment }}_CLOUDFRONT_DIST_ID
+          echo REPOSITORY_NAME=${{ github.event.inputs.environment }} >> $GITHUB_ENV
+          echo $REPOSITORY_NAME
+          
+          
+          
+          
+          #echo "action_state=${{ github.event.inputs.environment }}" >> $GITHUB_ENV
+          #echo "${{ env.action_state }}
+          #echo "dist_id = ${{ env.action_state }}_CLOUDFRONT_DIST_ID" >> $GITHUB_ENV
+          #echo "${{ env.dist_id }}
+          ##echo ${{ github.event.inputs.environment }}_${CLOUDFRONT_DIST_ID[${{ github.event.inputs.application }}]}
+          ##echo ${{ github.event.inputs.environment }}_CLOUDFRONT_DIST_ID
         
       - name: Temp exit
         run: | 

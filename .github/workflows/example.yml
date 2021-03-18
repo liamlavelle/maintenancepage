@@ -114,19 +114,7 @@ jobs:
           echo "Set the ETag variable..."
           ETAG=`echo ${PAYLOAD} | jq -r '.ETag'`
           echo "ETag set as ${ETAG}..."
-          
-          echo "Update the configuration payload..."
-          PAYLOAD=`echo ${PAYLOAD} | jq 'del(.ETag)' | jq '.DistributionConfig' | jq --arg PATHPATTERN "$PATHPATTERN" '.CacheBehaviors.Items[0].PathPattern = ${PATH_PATTERN_OPT[$MAINT_ONOFF]}'`
-          
-          echo "Write the updated payload to file..."
-          echo $PAYLOAD > /tmp/${DEV_CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}.json
-          
-          echo "Turning the maintenance page ${MAINT_ONOFF}..."
-          aws cloudfront update-distribution --distribution-config file:///tmp/${DEV_CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}.json \ 
-                                             --id ${CLOUDFRONT_DIST_ID} --if-match $ETAG
-          
-          echo "The maintenace page has been turned ${MAINT_ONOFF}.  PLEASE MANUALLY CHECK THE WEBPAGE PAGE!"
-          
+                  
       - name: Temp exit
         run: | 
           echo "Lets exit here as no need to run the rest"

@@ -90,6 +90,10 @@ jobs:
           echo ${DEV_CLOUDFRONT_DIST_ID[${{ github.event.inputs.application }}]}
           echo REPOSITORY_NAME=${{ github.event.inputs.environment }} >> $GITHUB_ENV
           echo $REPOSITORY_NAME
+      
+      - name: Test arrays
+        run: |
+          echo $REPOSITORY_NAME
           
           
           

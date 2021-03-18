@@ -111,7 +111,10 @@ jobs:
           
           echo "Get Cloudfront distrubution config..."
           PAYLOAD=`aws cloudfront get-distribution-config --id ${CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}`
-
+          
+          echo $PAYLOAD > /tmp/${CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}.json
+          cat /tmp/${CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}.json
+          
           echo "Set the ETag variable..."
           ETAG=`echo ${PAYLOAD} | jq -r '.ETag'`
           echo "ETag set as ${ETAG}..."

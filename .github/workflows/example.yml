@@ -88,16 +88,47 @@ jobs:
         run: |
           echo ENV_NAME=${{ github.event.inputs.environment }} >> $GITHUB_ENV
           echo APP_NAME=${{ github.event.inputs.application }} >> $GITHUB_ENV
-
+          echo MAINT_ONOFF=${{ on_off_maintenance_page }} >> $GITHUB_ENV
       
-      - name: Test arrays
+      - name: Toggle maintenance page
         run: |
-          declare -A DEV_CLOUDFRONT_DIST_ID=( ["prod_crm"]="E3X8VEW3S9TQQ" ["prod_cust360"]="E696HHVMKMNGJ")
-          echo ${ENV_NAME}_${APP_NAME}
-          echo ${DEV_CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}
-  
+          declare -A CLOUDFRONT_DIST_ID=( ["prod_crm"]="E1BVEKRQF20RNI" \
+                                          ["prod_cust360"]="E1BVEKRQF20RNI" \
+                                          ["qa_crm"]="TBC" \
+                                          ["qa_cust360"]="TBC" \
+                                          ["test_crm"]="TBC" \
+                                          ["test_cust360"]="TBC" \
+                                          ["dev_crm"]="TBC" \
+                                          ["dev_cust360"]="TBC")
+                                          
+          declare - A PATH_PATTERN_OPT=( ["on"]="/*.*/" \
+                                         ["off"]="/disabled/")
+                                           
+          echo "ENVIRONMENT: ${ENV_NAME}"
+          echo "APPLICATION: ${APP_NAME}"
+          echo "Cloudfront Distribution ID: ${DEV_CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}
           
-        
+          echo "Get Cloudfront distrubution config..."
+          PAYLOAD=`aws cloudfront get-distribution-config --id ${CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}`
+          
+          echo "Set the ETag variable..."
+          ETAG=`echo ${PAYLOAD} | jq -r '.ETag'`
+          echo "ETag set as ${ETAG}..."
+          
+          echo "Update the configuration payload..."
+          PAYLOAD=`echo ${PAYLOAD} | jq 'del(.ETag)' | \
+                                     jq '.DistributionConfig' | \
+                                     jq --arg PATHPATTERN "$PATHPATTERN" '.CacheBehaviors.Items[0].PathPattern = $PATH_PATTERN_OPT[$MAINT_ONOFF]'`
+          
+          echo "Write the updated payload to file..."
+          echo $PAYLOAD > /tmp/${DEV_CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}.json
+          
+          echo "Turning the maintenance page ${MAINT_ONOFF}..."
+          aws cloudfront update-distribution --distribution-config file:///tmp/${DEV_CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}.json \ 
+                                             --id ${CLOUDFRONT_DIST_ID} --if-match $ETAG
+          
+          echo "The maintenace page has been turned ${MAINT_ONOFF}.  PLEASE MANUALLY CHECK THE WEBPAGE PAGE!"
+          
       - name: Temp exit
         run: | 
           echo "Lets exit here as no need to run the rest"
@@ -119,12 +150,5 @@ jobs:
           CLOUDFRONT_DIST_ID: E1BVEKRQF20RNI
           PATHPATTERN: "*"
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+

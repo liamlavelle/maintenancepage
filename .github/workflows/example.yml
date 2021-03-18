@@ -10,7 +10,7 @@ on:
       environment:
         description: 'Environment (dev, test, qa or prod)'
         required: true
-        default: 'DEV'
+        default: 'dev'
       application:
         description: 'Application (crm or cust360)'
         required: true

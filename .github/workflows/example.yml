@@ -132,8 +132,7 @@ jobs:
           cat /tmp/${CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}.json
           
           echo "Turning the maintenance page ${MAINT_ONOFF}..."
-          aws cloudfront update-distribution --distribution-config file:///tmp/${CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}.json \ 
-                                             --id ${CLOUDFRONT_DIST_ID} --if-match $ETAG
+          aws cloudfront update-distribution --distribution-config file:///tmp/${CLOUDFRONT_DIST_ID[${ENV_NAME}_${APP_NAME}]}.json --id ${CLOUDFRONT_DIST_ID} --if-match $ETAG
                                              
           echo "The maintenace page has been turned ${MAINT_ONOFF}.  PLEASE MANUALLY CHECK THE WEBPAGE PAGE!"
 

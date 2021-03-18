@@ -120,6 +120,7 @@ jobs:
           echo "ETag set as ${ETAG}..."
           
           PATHPATTERN=${PATH_PATTERN_OPT[$MAINT_ONOFF]}
+          echo ${PATHPATTERN}
           echo "Update the configuration payload..."
           PAYLOAD=`echo ${PAYLOAD} | jq 'del(.ETag)' | \
                                      jq '.DistributionConfig' | \

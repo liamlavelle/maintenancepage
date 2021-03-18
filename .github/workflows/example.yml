@@ -88,7 +88,7 @@ jobs:
         run: |
           echo ENV_NAME=${{ github.event.inputs.environment }} >> $GITHUB_ENV
           echo APP_NAME=${{ github.event.inputs.application }} >> $GITHUB_ENV
-          echo MAINT_ONOFF=${{ on_off_maintenance_page }} >> $GITHUB_ENV
+          echo MAINT_ONOFF=${{ github.event.inputs.on_off_maintenance_page }} >> $GITHUB_ENV
       
       - name: Toggle maintenance page
         run: |

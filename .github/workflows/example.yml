@@ -6,6 +6,8 @@ name: Self-service Maintenance Page
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    branches:
+    - master
     inputs:
       environment:
         description: 'Environment (dev, test, qa or prod)'

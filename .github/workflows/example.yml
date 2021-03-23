@@ -94,8 +94,8 @@ jobs:
       
       - name: Toggle maintenance page
         run: |
-          declare -A CLOUDFRONT_DIST_ID=( ["prod_crm"]="E1BVEKRQF20RNI" \
-                                          ["prod_cust360"]="E1BVEKRQF20RNI" \
+          declare -A CLOUDFRONT_DIST_ID=( ["prod_crm"]="E1BVEKRQF20RNIxxx" \
+                                          ["prod_cust360"]="E1BVEKRQF20RNIxxx" \
                                           ["qa_crm"]="TBC" ["qa_cust360"]="TBC" \
                                           ["test_crm"]="TBC" \
                                           ["test_cust360"]="TBC" \
